@@ -2258,10 +2258,10 @@ public class JStoEXI {
 		JStoEXI js2exi = new JStoEXI();
 		js2exi.setDebug(System.out);
 
-		// String sin = "./src/test/resources/animals.js";
+		String sin = "./src/test/resources/animals.js";
 		// String sin = "./src/test/resources/browserDetection.js";
 		// String sin = "./src/test/resources/xCryptic.app.js";
-		String sin = "./src/test/resources/jquery.js";
+		// String sin = "./src/test/resources/jquery.js";
 		// String sin = "./src/test/resources/jquery.min.js";
 		// String sin = "./src/test/resources/angular2.js";
 		// String sin = "./src/test/resources/angular2.min.js";
