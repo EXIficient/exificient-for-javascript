@@ -122,4 +122,4 @@ See test-data in https://github.com/EXIficient/exificient-for-javascript/tree/ma
 | react.min.js | 148805 | 101384 |
 | xCryptic.app.js |5611 | 2508
 
-On average "EXI for JS" is 50% of the size of the original JavaScript file!
+On average "EXI for JS" is about 50% of the original JavaScript filesize!
