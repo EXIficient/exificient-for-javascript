@@ -5,6 +5,12 @@ EXI for JavaScript (Explorative) - How EXI can be used to represent JavaScript e
 * Size and
 * Processing speed
 
+
+Implementations:
+* [Java](https://github.com/EXIficient/exificient-for-javascript/tree/master/src/main/java/) 
+* [C](https://github.com/EXIficient/exificient-for-javascript/tree/master/src/main/c/) 
+
+
 [![Build Status](https://travis-ci.org/EXIficient/exificient-for-css.svg?branch=master)](https://travis-ci.org/EXIficient/exificient-for-javascript)
 
 ## Abstract Syntax Tree (AST) for JavaScript
