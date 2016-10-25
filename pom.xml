@@ -9,7 +9,12 @@
 		<developerConnection>scm:git:https://github.com/EXIficient/exificient-for-javascript.git</developerConnection>
 		<url>https://github.com/EXIficient/exificient-for-javascript</url>
 	  <tag>HEAD</tag>
-  </scm>
+  	</scm>
+	
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 	
 	<build>
 		<plugins>
