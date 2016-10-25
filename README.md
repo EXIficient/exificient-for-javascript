@@ -111,7 +111,7 @@ See test-data in https://github.com/EXIficient/exificient-for-javascript/tree/ma
 
 
 | TestCase     | JavaScript [Size in Bytes]  | EXI 4 JS [Size in Bytes]  |
-| ------------- |:-------------:| -----:|
+| ------------- | -------------:| -----:|
 | angular2.js     | 1182582 | 388994 |
 | angular2.min.js | 635809 | 375410 |
 |animals.js | 40 | 30 |
