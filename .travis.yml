@@ -1,0 +1,10 @@
+language: java
+jdk:
+- oraclejdk8
+# - oraclejdk7 # uses Java8 Nashorn features
+env:
+  global:
+  - SONATYPE_USERNAME=daniel_peintner
+  - secure: QA3Wd70zXHgPP6BEW3zaTQY7ThjgW29j3IIY78lbMDKlP8sqZPdlzeyZ7I4Y+nYbX76H97jtw+ljD8mH2NwpaVTSER4sEOElpIV3Icvzf//5YcFNEwRN+enuSdLhRlONDwh9znwB71c+3r3DWYORytpJZo8gcbzjbl+QBvz5ZWVIEBDy7TSxAf1Ane/eORd9CkoUvaCqg/iPjXbqW2Keq6Yh2TLbrzsBHXYl/EyEYBdn4Tvb1rOqSkE/tuVvgsuFNc0/h75wudNKI7bQ4Y5ODVSfpnkpu7cRY1tsXrfiee+EDT3r6I8ACh5L4BsAaXsReYuWpKxMuQPD19IabX6sIgiSJcnElELgwRbDbGPHFSRjIvqH8FhJggGIWM9Fo3f7u609l2eW18AYmqjSFQuAjNKA9pYMHn02pGzqCukBZI3zwIh/kx6lw2KbtJRVrMd7LwTmonyyy91wiaFsOV3PdvHJ0fFE0utt3I543k5L51GNeo/xZ/OdUp1eqZ7dmwsjgfXmI/orQn+l2Cr/ggnjMGCgQILsez2FoAlr8QlOhLeII7a2Q+qO/06LxO7D886fmy16w3vQle+DxjW4mTdBrlsmT+Wcen/YYudYP9HOMiepoVMRNVBUS3f4A9o6eMjjsYDabZ0Id69arpbBYqIhXNkHZiyf/WCJej5qCusE17o=
+after_success:
+- mvn deploy --settings settings.xml -DskipTests=true -B
