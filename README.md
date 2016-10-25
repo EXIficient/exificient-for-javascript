@@ -9,7 +9,7 @@ EXI for JavaScript (Explorative) - How EXI can be used to represent JavaScript e
 
 ## Abstract Syntax Tree (AST) for JavaScript
 
-We use the syntax tree format as standardized by [EStree project](https://github.com/estree/estree). See also
+We re-use the syntax tree format as standardized by [EStree project](https://github.com/estree/estree). See also
 * [Esprima](http://esprima.org/)
 * [SpiderMonkey/Parser_API]()https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API
 
@@ -46,7 +46,7 @@ var dog = 6, cat = 7, pig = dog * cat;
                         </VariableDeclarator>
                     </array>
                 </declarations>
-                <kind> </kind>
+                <kind>var</kind>
             </VariableDeclaration>
             <VariableDeclaration>
                 <declarations>
@@ -67,7 +67,7 @@ var dog = 6, cat = 7, pig = dog * cat;
                         </VariableDeclarator>
                     </array>
                 </declarations>
-                <kind> </kind>
+                <kind>var</kind>
             </VariableDeclaration>
             <VariableDeclaration>
                 <declarations>
@@ -96,7 +96,7 @@ var dog = 6, cat = 7, pig = dog * cat;
                         </VariableDeclarator>
                     </array>
                 </declarations>
-                <kind> </kind>
+                <kind>var</kind>
             </VariableDeclaration>
         </array>
     </body>

@@ -2074,14 +2074,15 @@ public class JStoEXI {
 			throw new RuntimeException("Unexpected ValueType in declarations: " + jsDecls.getValueType());
 		}
 
-		println("<kind>");
+		
 		bodyEncoder.encodeStartElement(JSConstants.URI, "kind", null);
 		String s = jo.getString("kind", "var");
+		println("<kind>" + s + "</kind>");
 		// println("<string>" + s + "</string>");
 		// bodyEncoder.encodeStartElement(JSConstants.URI, "string", null);
 		bodyEncoder.encodeCharacters(new StringValue(s));
 		// bodyEncoder.encodeEndElement();
-		println("</kind>");
+		// println("</kind>");
 		bodyEncoder.encodeEndElement();
 
 		println("</VariableDeclaration>");
