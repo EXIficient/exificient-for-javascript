@@ -80,7 +80,7 @@ var dog = 6, cat = 7, pig = dog * cat;
                             </id>
                             <init>
                                 <BinaryExpression>
-                                    <operator> </operator>
+                                    <operator>*</operator>
                                     <left>
                                         <Identifier>
                                             <name>dog</name>

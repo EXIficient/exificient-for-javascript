@@ -276,14 +276,16 @@ public class JStoEXI {
 		println("<BinaryExpression>");
 		bodyEncoder.encodeStartElement(JSConstants.URI, "BinaryExpression", null);
 
-		println("<operator>");
+		
 		bodyEncoder.encodeStartElement(JSConstants.URI, "operator", null);
 		// enum BinaryOperator
 		// println("<string>" + jo.getString("operator") + "</string>");
 		// bodyEncoder.encodeStartElement(JSConstants.URI, "string", null);
-		bodyEncoder.encodeCharacters(new StringValue(jo.getString("operator")));
+		String sop = jo.getString("operator");
+		println("<operator>" + sop + "</operator>");
+		bodyEncoder.encodeCharacters(new StringValue(sop));
 		// bodyEncoder.encodeEndElement();
-		println("</operator>");
+		// println("</operator>");
 		bodyEncoder.encodeEndElement();
 
 		println("<left>");
