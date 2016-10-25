@@ -1,0 +1,602 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ie"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "!=",
+                        "left": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "document"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "all"
+                            }
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": null,
+                            "raw": "null"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ie5"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "document"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "getElementById"
+                            }
+                        },
+                        "right": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "document"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "all"
+                            }
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ie6"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "LogicalExpression",
+                            "operator": "&&",
+                            "left": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "document"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "getElementById"
+                                }
+                            },
+                            "right": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "document"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "all"
+                                }
+                            }
+                        },
+                        "right": {
+                            "type": "BinaryExpression",
+                            "operator": ">=",
+                            "left": {
+                                "type": "CallExpression",
+                                "callee": {
+                                    "type": "MemberExpression",
+                                    "computed": false,
+                                    "object": {
+                                        "type": "MemberExpression",
+                                        "computed": false,
+                                        "object": {
+                                            "type": "Identifier",
+                                            "name": "navigator"
+                                        },
+                                        "property": {
+                                            "type": "Identifier",
+                                            "name": "appVersion"
+                                        }
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "indexOf"
+                                    }
+                                },
+                                "arguments": [
+                                    {
+                                        "type": "Literal",
+                                        "value": "MSIE 6.",
+                                        "raw": "\"MSIE 6.\""
+                                    }
+                                ]
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 0,
+                                "raw": "0"
+                            }
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ns4"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "!=",
+                        "left": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "document"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "layers"
+                            }
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": null,
+                            "raw": "null"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ns6"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "MemberExpression",
+                            "computed": false,
+                            "object": {
+                                "type": "Identifier",
+                                "name": "document"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "getElementById"
+                            }
+                        },
+                        "right": {
+                            "type": "UnaryExpression",
+                            "operator": "!",
+                            "argument": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "document"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "all"
+                                }
+                            },
+                            "prefix": true
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ns"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "||",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "ns4"
+                        },
+                        "right": {
+                            "type": "Identifier",
+                            "name": "ns6"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "ff"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "UnaryExpression",
+                            "operator": "!",
+                            "argument": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "document"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "layers"
+                                }
+                            },
+                            "prefix": true
+                        },
+                        "right": {
+                            "type": "UnaryExpression",
+                            "operator": "!",
+                            "argument": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "document"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "all"
+                                }
+                            },
+                            "prefix": true
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "op"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": ">",
+                        "left": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "MemberExpression",
+                                    "computed": false,
+                                    "object": {
+                                        "type": "Identifier",
+                                        "name": "navigator"
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "userAgent"
+                                    }
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "indexOf"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "opera",
+                                    "raw": "\"opera\""
+                                }
+                            ]
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": 0,
+                            "raw": "0"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "op7"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "op"
+                        },
+                        "right": {
+                            "type": "BinaryExpression",
+                            "operator": "<=",
+                            "left": {
+                                "type": "CallExpression",
+                                "callee": {
+                                    "type": "Identifier",
+                                    "name": "operaVersion"
+                                },
+                                "arguments": []
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 7,
+                                "raw": "7"
+                            }
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "op8"
+                    },
+                    "init": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "op"
+                        },
+                        "right": {
+                            "type": "BinaryExpression",
+                            "operator": ">=",
+                            "left": {
+                                "type": "CallExpression",
+                                "callee": {
+                                    "type": "Identifier",
+                                    "name": "operaVersion"
+                                },
+                                "arguments": []
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 8,
+                                "raw": "8"
+                            }
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "FunctionDeclaration",
+            "id": {
+                "type": "Identifier",
+                "name": "operaVersion"
+            },
+            "params": [],
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "agent"
+                            },
+                            "right": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "navigator"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "userAgent"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "idx"
+                            },
+                            "right": {
+                                "type": "CallExpression",
+                                "callee": {
+                                    "type": "MemberExpression",
+                                    "computed": false,
+                                    "object": {
+                                        "type": "Identifier",
+                                        "name": "agent"
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "indexOf"
+                                    }
+                                },
+                                "arguments": [
+                                    {
+                                        "type": "Literal",
+                                        "value": "opera",
+                                        "raw": "\"opera\""
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "IfStatement",
+                        "test": {
+                            "type": "BinaryExpression",
+                            "operator": ">",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "idx"
+                            },
+                            "right": {
+                                "type": "UnaryExpression",
+                                "operator": "-",
+                                "argument": {
+                                    "type": "Literal",
+                                    "value": 1,
+                                    "raw": "1"
+                                },
+                                "prefix": true
+                            }
+                        },
+                        "consequent": {
+                            "type": "BlockStatement",
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "argument": {
+                                        "type": "CallExpression",
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "name": "parseInt"
+                                        },
+                                        "arguments": [
+                                            {
+                                                "type": "CallExpression",
+                                                "callee": {
+                                                    "type": "MemberExpression",
+                                                    "computed": false,
+                                                    "object": {
+                                                        "type": "Identifier",
+                                                        "name": "agent"
+                                                    },
+                                                    "property": {
+                                                        "type": "Identifier",
+                                                        "name": "subString"
+                                                    }
+                                                },
+                                                "arguments": [
+                                                    {
+                                                        "type": "BinaryExpression",
+                                                        "operator": "+",
+                                                        "left": {
+                                                            "type": "Identifier",
+                                                            "name": "idx"
+                                                        },
+                                                        "right": {
+                                                            "type": "Literal",
+                                                            "value": 6,
+                                                            "raw": "6"
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "BinaryExpression",
+                                                        "operator": "+",
+                                                        "left": {
+                                                            "type": "Identifier",
+                                                            "name": "idx"
+                                                        },
+                                                        "right": {
+                                                            "type": "Literal",
+                                                            "value": 7,
+                                                            "raw": "7"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "alternate": null
+                    }
+                ]
+            },
+            "generator": false,
+            "expression": false
+        }
+    ],
+    "sourceType": "script"
+}

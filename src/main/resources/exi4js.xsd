@@ -1,0 +1,1596 @@
+<xsd:schema targetNamespace="urn:javascript" xmlns:js="urn:javascript"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- NOTES by Daniel -->
+  <!-- * remove "array", "string", "boolean" etc constructs (array might be still useful?) -->
+
+
+  <!--
+  interface Program <: Node {
+      type: "Program";
+      body: [ Statement ];
+  }
+  -->
+  <xsd:element name="Program">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="body">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="array">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element ref="js:Statement" minOccurs="0" maxOccurs="unbounded"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface Statement <: Node { }
+  -->
+  <xsd:element name="Statement" type="js:Statement" abstract="true"/>
+  <xsd:complexType name="Statement"> </xsd:complexType>
+
+
+  <!--
+  interface EmptyStatement <: Statement {
+      type: "EmptyStatement";
+  }
+  -->
+  <xsd:element name="EmptyStatement" substitutionGroup="js:Statement" type="js:Statement"/>
+
+
+  <!-- 
+  interface BlockStatement <: Statement {
+      type: "BlockStatement";
+      body: [ Statement ];
+  }
+  -->
+  <xsd:element name="BlockStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Statement" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface ExpressionStatement <: Statement {
+      type: "ExpressionStatement";
+      expression: Expression;
+  }
+  -->
+  <xsd:element name="ExpressionStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="expression">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface IfStatement <: Statement {
+      type: "IfStatement";
+      test: Expression;
+      consequent: Statement;
+      alternate: Statement | null;
+  }
+  -->
+  <xsd:element name="IfStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="test">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="consequent">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="alternate">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Statement"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface LabeledStatement <: Statement {
+      type: "LabeledStatement";
+      label: Identifier;
+      body: Statement;
+  }
+  -->
+  <xsd:element name="LabeledStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="label">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Identifier"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface BreakStatement <: Statement {
+      type: "BreakStatement";
+      label: Identifier | null;
+  }
+  -->
+  <xsd:element name="BreakStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="label">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Identifier"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ContinueStatement <: Statement {
+      type: "ContinueStatement";
+      label: Identifier | null;
+  }
+  -->
+  <xsd:element name="ContinueStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="label">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Identifier"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface WithStatement <: Statement {
+      type: "WithStatement";
+      object: Expression;
+      body: Statement;
+  }
+  -->
+  <xsd:element name="WithStatement" substitutionGroup="js:Statement" type="js:Statement">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface SwitchStatement <: Statement {
+      type: "SwitchStatement";
+      discriminant: Expression;
+      cases: [ SwitchCase ];
+      lexical: boolean;
+  }
+  -->
+  <xsd:element name="SwitchStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="discriminant">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="cases">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:SwitchCase" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <!-- TODO Optional? at least in Java Nashorn -->
+            <xsd:element name="lexical" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface ReturnStatement <: Statement {
+      type: "ReturnStatement";
+      argument: Expression | null;
+  }
+  -->
+  <xsd:element name="ReturnStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="argument">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Expression"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ThrowStatement <: Statement {
+    type: "ThrowStatement";
+    argument: Expression;
+  }
+  -->
+  <xsd:element name="ThrowStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="argument">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface TryStatement <: Statement {
+      type: "TryStatement";
+      block: BlockStatement;
+      handler: CatchClause | null;
+      guardedHandlers: [ CatchClause ];
+      finalizer: BlockStatement | null;
+  }
+  -->
+  <xsd:element name="TryStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="block">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:BlockStatement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="handler">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:CatchClause"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="guardedHandlers">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:CatchClause" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="finalizer">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:BlockStatement"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface WhileStatement <: Statement {
+      type: "WhileStatement";
+      test: Expression;
+      body: Statement;
+  }
+  -->
+  <xsd:element name="WhileStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="test">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface DoWhileStatement <: Statement {
+      type: "DoWhileStatement";
+      body: Statement;
+      test: Expression;
+  }
+  -->
+  <xsd:element name="DoWhileStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="test">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ForStatement <: Statement {
+      type: "ForStatement";
+      init: VariableDeclaration | Expression | null;
+      test: Expression | null;
+      update: Expression | null;
+      body: Statement;
+  }
+  -->
+  <xsd:element name="ForStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="init">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:VariableDeclaration"/>
+                  <xsd:element ref="js:Expression"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="test">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Expression"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="update">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Expression"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ForInStatement <: Statement {
+      type: "ForInStatement";
+      left: VariableDeclaration |  Expression;
+      right: Expression;
+      body: Statement;
+      each: boolean;
+  }
+  -->
+  <xsd:element name="ForInStatement" substitutionGroup="js:Statement">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Statement">
+          <xsd:sequence>
+            <xsd:element name="left">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:VariableDeclaration"/>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="right">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Statement"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="each" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface ForOfStatement <: Statement {
+      type: "ForOfStatement";
+      left: VariableDeclaration |  Expression;
+      right: Expression;
+      body: Statement;
+  }
+  -->
+  <xsd:element name="ForOfStatement" substitutionGroup="js:Statement" type="js:Statement">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface LetStatement <: Statement {
+      type: "LetStatement";
+      head: [ VariableDeclarator ];
+      body: Statement;
+  }
+  -->
+  <xsd:element name="LetStatement" substitutionGroup="js:Statement" type="js:Statement">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface DebuggerStatement <: Statement {
+      type: "DebuggerStatement";
+  }
+  -->
+  <xsd:element name="DebuggerStatement" substitutionGroup="js:Statement" type="js:Statement">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface Declaration <: Statement { }
+  -->
+  <xsd:element name="Declaration" substitutionGroup="js:Statement" abstract="true"
+    type="js:Declaration"/>
+  <xsd:complexType name="Declaration">
+    <xsd:complexContent>
+      <xsd:extension base="js:Statement"> </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <!--
+  interface FunctionDeclaration <: Function, Declaration {
+      type: "FunctionDeclaration";
+      id: Identifier;
+      params: [ Pattern ];
+      defaults: [ Expression ];
+      rest: Identifier | null;
+      body: BlockStatement | Expression;
+      generator: boolean;
+      expression: boolean;
+  }
+  -->
+  <xsd:element name="FunctionDeclaration" substitutionGroup="js:Declaration">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Declaration">
+          <xsd:sequence>
+            <xsd:element name="id">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Identifier"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="params">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Pattern" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="defaults">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Expression" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="rest">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Identifier"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:BlockStatement"/>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="generator" type="xsd:boolean"/>
+            <xsd:element name="expression" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface VariableDeclaration <: Declaration {
+      type: "VariableDeclaration";
+      declarations: [ VariableDeclarator ];
+      kind: "var" | "let" | "const";
+  }
+  -->
+  <xsd:element name="VariableDeclaration" substitutionGroup="js:Declaration">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Declaration">
+          <xsd:sequence>
+            <xsd:element name="declarations">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:VariableDeclarator" minOccurs="0" maxOccurs="unbounded"
+                        />
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="kind">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="var"/>
+                  <xsd:enumeration value="let"/>
+                  <xsd:enumeration value="const"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface VariableDeclarator <: Node {
+      type: "VariableDeclarator";
+      id: Pattern;
+      init: Expression | null;
+  }
+  -->
+  <xsd:element name="VariableDeclarator">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element ref="js:Pattern"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="init">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element ref="js:Expression"/>
+              <xsd:element name="null">
+                <xsd:complexType/>
+              </xsd:element>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface Expression <: Node, Pattern { }
+  -->
+  <xsd:element name="Expression" substitutionGroup="js:Pattern" abstract="true" type="js:Expression"/>
+  <xsd:complexType name="Expression">
+    <xsd:complexContent>
+      <xsd:extension base="js:Pattern"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <!-- 
+  interface ThisExpression <: Expression {
+      type: "ThisExpression";
+  }
+  -->
+  <xsd:element name="ThisExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression"> </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ArrayExpression <: Expression {
+      type: "ArrayExpression";
+      elements: [ Expression | null ];
+  }
+  -->
+  <xsd:element name="ArrayExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="elements">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                        <xsd:element ref="js:Expression"/>
+                        <xsd:element name="null">
+                          <xsd:complexType/>
+                        </xsd:element>
+                      </xsd:choice>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface ObjectExpression <: Expression {
+      type: "ObjectExpression";
+      properties: [ Property ];
+  }
+  -->
+  <xsd:element name="ObjectExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="properties">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Property" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface FunctionExpression <: Function, Expression {
+      type: "FunctionExpression";
+      id: Identifier | null;
+      params: [ Pattern ];
+      defaults: [ Expression ];
+      rest: Identifier | null;
+      body: BlockStatement | Expression;
+      generator: boolean;
+      expression: boolean;
+  }
+  -->
+  <xsd:element name="FunctionExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="id">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Identifier"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="params">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Pattern" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="defaults">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Expression" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="rest">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:Identifier"/>
+                  <xsd:element name="null">
+                    <xsd:complexType/>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element ref="js:BlockStatement"/>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="generator" type="xsd:boolean"/>
+            <xsd:element name="expression" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface ArrowExpression <: Function, Expression {
+      type: "ArrowExpression";
+      params: [ Pattern ];
+      defaults: [ Expression ];
+      rest: Identifier | null;
+      body: BlockStatement | Expression;
+      generator: boolean;
+      expression: boolean;
+  }
+  -->
+  <xsd:element name="ArrowExpression" substitutionGroup="js:Expression">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface SequenceExpression <: Expression {
+      type: "SequenceExpression";
+      expressions: [ Expression ];
+  }
+  -->
+  <xsd:element name="SequenceExpression" substitutionGroup="js:Expression">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!--
+  interface UnaryExpression <: Expression {
+      type: "UnaryExpression";
+      operator: UnaryOperator;
+      prefix: boolean;
+      argument: Expression;
+  }
+
+  enum UnaryOperator {
+      "-" | "+" | "!" | "~" | "typeof" | "void" | "delete"
+  }
+  -->
+  <xsd:element name="UnaryExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="operator">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="-"/>
+                  <xsd:enumeration value="+"/>
+                  <xsd:enumeration value="!"/>
+                  <xsd:enumeration value="~"/>
+                  <xsd:enumeration value="typeof"/>
+                  <xsd:enumeration value="void"/>
+                  <xsd:enumeration value="delete"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="prefix" type="xsd:boolean"/>
+            <xsd:element name="argument">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface BinaryExpression <: Expression {
+      type: "BinaryExpression";
+      operator: BinaryOperator;
+      left: Expression;
+      right: Expression;
+  }
+  
+  enum BinaryOperator {
+      "==" | "!=" | "===" | "!=="
+           | "<" | "<=" | ">" | ">="
+           | "<<" | ">>" | ">>>"
+           | "+" | "-" | "*" | "/" | "%"
+           | "|" | "^" | "&" | "in"
+           | "instanceof" | ".."
+  }
+  -->
+  <xsd:element name="BinaryExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="operator">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="=="/>
+                  <xsd:enumeration value="!="/>
+                  <xsd:enumeration value="==="/>
+                  <xsd:enumeration value="!=="/>
+                  <xsd:enumeration value="&lt;"/>
+                  <xsd:enumeration value="&lt;="/>
+                  <xsd:enumeration value=">"/>
+                  <xsd:enumeration value=">="/>
+                  <xsd:enumeration value="&lt;&lt;"/>
+                  <xsd:enumeration value=">>"/>
+                  <xsd:enumeration value=">>>"/>
+                  <xsd:enumeration value="+"/>
+                  <xsd:enumeration value="-"/>
+                  <xsd:enumeration value="*"/>
+                  <xsd:enumeration value="/"/>
+                  <xsd:enumeration value="%"/>
+                  <xsd:enumeration value="|"/>
+                  <xsd:enumeration value="^"/>
+                  <xsd:enumeration value="&amp;"/>
+                  <xsd:enumeration value="in"/>
+                  <xsd:enumeration value="instanceof"/>
+                  <xsd:enumeration value=".."/>
+                  <!-- TODO Nashorn example with temp = doc.body.appendChild( doc.createElement( nodeName ) ), display = jQuery.css( temp, "display" ); -->
+                  <xsd:enumeration value=","/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="left">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="right">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface AssignmentExpression <: Expression {
+      type: "AssignmentExpression";
+      operator: AssignmentOperator;
+      left: Pattern;
+      right: Expression;
+  }
+  
+  enum AssignmentOperator {
+      "=" | "+=" | "-=" | "*=" | "/=" | "%="
+          | "<<=" | ">>=" | ">>>="
+          | "|=" | "^=" | "&="
+  }
+  -->
+  <xsd:element name="AssignmentExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="operator">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="="/>
+                  <xsd:enumeration value="+="/>
+                  <xsd:enumeration value="-="/>
+                  <xsd:enumeration value="*="/>
+                  <xsd:enumeration value="/="/>
+                  <xsd:enumeration value="%="/>
+                  <xsd:enumeration value="&lt;&lt;="/>
+                  <xsd:enumeration value=">>="/>
+                  <xsd:enumeration value=">>>="/>
+                  <xsd:enumeration value="|="/>
+                  <xsd:enumeration value="^="/>
+                  <xsd:enumeration value="&amp;="/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="left">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Pattern"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="right">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface UpdateExpression <: Expression {
+      type: "UpdateExpression";
+      operator: UpdateOperator;
+      argument: Expression;
+      prefix: boolean;
+  }
+  -->
+  <xsd:element name="UpdateExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="operator">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="++"/>
+                  <xsd:enumeration value="--"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="argument">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="prefix" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface LogicalExpression <: Expression {
+      type: "LogicalExpression";
+      operator: LogicalOperator;
+      left: Expression;
+      right: Expression;
+  }
+  
+  enum LogicalOperator {
+      "||" | "&&"
+  }
+  -->
+  <xsd:element name="LogicalExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="operator">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="||"/>
+                  <xsd:enumeration value="&amp;&amp;"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="left">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="right">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- 
+  interface ConditionalExpression <: Expression {
+      type: "ConditionalExpression";
+      test: Expression;
+      alternate: Expression;
+      consequent: Expression;
+  }
+  -->
+  <xsd:element name="ConditionalExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="test">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="alternate">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="consequent">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface NewExpression <: Expression {
+      type: "NewExpression";
+      callee: Expression;
+      arguments: [ Expression ];
+  }
+  -->
+  <xsd:element name="NewExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="callee">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="arguments">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Expression" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface CallExpression <: Expression {
+      type: "CallExpression";
+      callee: Expression;
+      arguments: [ Expression ];
+  }
+  -->
+  <xsd:element name="CallExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="callee">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="arguments">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="array">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element ref="js:Expression" minOccurs="0" maxOccurs="unbounded"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface MemberExpression <: Expression {
+      type: "MemberExpression";
+      object: Expression;
+      property: Identifier | Expression;
+      computed: boolean;
+  }
+  -->
+  <xsd:element name="MemberExpression" substitutionGroup="js:Expression">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="js:Expression">
+          <xsd:sequence>
+            <xsd:element name="object">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="js:Expression"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="property">
+              <xsd:complexType>
+                <xsd:choice>
+                  <!-- <xsd:element ref="js:Identifier"/>-->
+                  <xsd:element ref="js:Expression"/>
+                </xsd:choice>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="computed" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="YieldExpression" substitutionGroup="js:Expression"/>
+  <xsd:element name="ComprehensionExpression" substitutionGroup="js:Expression"/>
+  <xsd:element name="GeneratorExpression" substitutionGroup="js:Expression"/>
+  <xsd:element name="GraphExpression" substitutionGroup="js:Expression"/>
+  <xsd:element name="GraphIndexExpression" substitutionGroup="js:Expression"/>
+  <xsd:element name="LetExpression" substitutionGroup="js:Expression"/>
+
+
+  <!--
+  interface Property <: Node {
+      type: "Property";
+      key: Literal | Identifier;
+      value: Expression;
+      kind: "init" | "get" | "set";
+  }
+  -->
+  <xsd:element name="Property">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="key">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element ref="js:Literal"/>
+              <xsd:element ref="js:Identifier"/>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="value">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element ref="js:Expression"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="kind">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="init"/>
+              <xsd:enumeration value="get"/>
+              <xsd:enumeration value="set"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface Pattern <: Node { }
+  -->
+  <xsd:element name="Pattern" abstract="true" type="js:Pattern"/>
+  <xsd:complexType name="Pattern"/>
+
+
+  <!--
+  interface ObjectPattern <: Pattern {
+      type: "ObjectPattern";
+      properties: [ { key: Literal | Identifier, value: Pattern } ];
+  }
+  -->
+  <xsd:element name="ObjectPattern" substitutionGroup="js:Pattern">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!-- 
+  interface ArrayPattern <: Pattern {
+      type: "ArrayPattern";
+      elements: [ Pattern | null ];
+  }
+  -->
+  <xsd:element name="ArrayPattern" substitutionGroup="js:Pattern">
+    <!-- TODO -->
+  </xsd:element>
+
+
+  <!-- 
+  interface SwitchCase <: Node {
+      type: "SwitchCase";
+      test: Expression | null;
+      consequent: [ Statement ];
+  }
+  -->
+  <xsd:element name="SwitchCase">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="test">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element ref="js:Expression"/>
+              <xsd:element name="null">
+                <xsd:complexType/>
+              </xsd:element>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="consequent">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="array">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element ref="js:Statement" minOccurs="0" maxOccurs="unbounded"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--
+  interface CatchClause <: Node {
+      type: "CatchClause";
+      param: Pattern;
+      guard: Expression | null;
+      body: BlockStatement;
+  }
+  -->
+  <xsd:element name="CatchClause">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="param">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element ref="js:Pattern"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="guard">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element ref="js:Expression"/>
+              <xsd:element name="null">
+                <xsd:complexType/>
+              </xsd:element>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="body">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element ref="js:BlockStatement"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--<xsd:element name="ComprehensionBlock">
+    <xsd:complexType/>
+  </xsd:element>-->
+
+  <!--<xsd:element name="ComprehensionIf">
+    <xsd:complexType/>
+  </xsd:element>-->
+
+
+  <!-- 
+  interface Identifier <: Node, Expression, Pattern {
+      type: "Identifier";
+      name: string;
+  }
+  -->
+  <xsd:element name="Identifier"  substitutionGroup="js:Expression"  type="js:Identifier" /><!-- type="js:Identifier" -->
+  <xsd:complexType name="Identifier">
+    <xsd:complexContent>
+      <xsd:extension base="js:Expression">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <!-- 
+  interface Literal <: Node, Expression {
+      type: "Literal";
+      value: string | boolean | null | number | RegExp;
+  }
+  -->
+  <xsd:element name="Literal" substitutionGroup="js:Expression" type="js:Literal"/>
+  <xsd:complexType name="Literal">
+    <xsd:complexContent>
+      <xsd:extension base="js:Expression">
+        <xsd:sequence>
+          <xsd:element name="value">
+            <xsd:complexType>
+              <xsd:choice>
+                <xsd:element name="string" type="xsd:string"/>
+                <xsd:element name="boolean" type="xsd:boolean"/>
+                <xsd:element name="null">
+                  <xsd:complexType/>
+                </xsd:element>
+                <xsd:element name="integer" type="xsd:integer"/>
+                <xsd:element name="number" type="xsd:double"/>
+                <xsd:element name="RegExp" type="xsd:string"/>
+              </xsd:choice>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

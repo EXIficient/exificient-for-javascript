@@ -1,0 +1,55 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "dog"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 6,
+                        "raw": "6"
+                    }
+                },
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "cat"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 7,
+                        "raw": "7"
+                    }
+                },
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "pig"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "dog"
+                        },
+                        "right": {
+                            "type": "Identifier",
+                            "name": "cat"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        }
+    ],
+    "sourceType": "script"
+}
