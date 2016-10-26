@@ -130,5 +130,4 @@ See test-data in https://github.com/EXIficient/exificient-for-javascript/tree/ma
 
 On average "EXI for JS" is about 50% of the original JavaScript filesize!
 
-Reference-style: 
 ![Compression Figure](compression.png)
