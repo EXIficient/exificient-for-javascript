@@ -1,22 +1,21 @@
 package com.siemens.ct.exi.javascript;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 
 import com.siemens.ct.exi.exceptions.EXIException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import static net.javacrumbs.jsonunit.JsonAssert.*;
-import static net.javacrumbs.jsonunit.core.Option.*;
 
 /**
  * Unit test for round-tripping JS (AST) files
@@ -85,16 +84,17 @@ public class JSRoundtripTest extends TestCase {
 
 		
 		// reconstruct JS AST
-		EXItoJSAST exi2ast = new EXItoJSAST();
+		EXItoAST exi2ast = new EXItoAST();
 		ByteArrayOutputStream baosAST = new ByteArrayOutputStream();
 		exi2ast.generate(new ByteArrayInputStream(baos.toByteArray()), baosAST);
 		
 		System.out.println("from: " + jsonAST);
 		System.out.println("to: " + baosAST.toString());
 		
-		assertJsonEquals("{\"test\":[1,2,3]}", 
-			    "{\"test\":[3,2,1]}",
-			    when(IGNORING_ARRAY_ORDER));
+//		import static net.javacrumbs.jsonunit.core.Option.*;
+//		assertJsonEquals("{\"test\":[1,2,3]}", 
+//			    "{\"test\":[3,2,1]}",
+//			    when(IGNORING_ARRAY_ORDER));
 		
 		assertJsonEquals(jsonAST, baosAST.toString());
 		

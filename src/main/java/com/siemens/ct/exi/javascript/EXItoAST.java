@@ -24,15 +24,15 @@ import com.siemens.ct.exi.values.IntegerValue;
 import com.siemens.ct.exi.values.Value;
 import com.siemens.ct.exi.values.ValueType;
 
-public class EXItoJSAST {
+public class EXItoAST {
 	
 	EXIFactory ef;
 	
-	public EXItoJSAST() {
+	public EXItoAST() {
 		this(JSConstants.EXI_FACTORY);
 	}
 	
-	public EXItoJSAST(EXIFactory ef) {
+	public EXItoAST(EXIFactory ef) {
 		this.ef = ef;
 	}
 	
@@ -194,7 +194,7 @@ public class EXItoJSAST {
 		System.out.println("From JavaScript " + jsCode.length() + " Bytes to " + baos.size() + " in EXI4JS");
 		
 		// reconstruct JS AST
-		EXItoJSAST exi2ast = new EXItoJSAST();
+		EXItoAST exi2ast = new EXItoAST();
 		ByteArrayOutputStream baosAST = new ByteArrayOutputStream();
 		exi2ast.generate(new ByteArrayInputStream(baos.toByteArray()), baosAST);
 		
