@@ -88,11 +88,11 @@ public class JStoEXITest extends TestCase {
 	}
 
 	protected void _test(String js) throws IOException, EXIException {
-		String code = new String(Files.readAllBytes(Paths.get(js)));
+		String jsCode = new String(Files.readAllBytes(Paths.get(js)));
 		JStoEXI js2exi = new JStoEXI();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		js2exi.generate(code, baos);
+		js2exi.generate(JStoAST.getAST(jsCode), baos);
 
-		System.out.println(js + "; " + code.length() + "; " + baos.size() + ";");
+		System.out.println(js + "; " + jsCode.length() + "; " + baos.size() + ";");
 	}
 }

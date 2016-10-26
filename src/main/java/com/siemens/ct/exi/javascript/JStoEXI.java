@@ -76,48 +76,15 @@ public class JStoEXI {
 		generate(stringBuilder.toString(), os);
 	}
 
-	public void generate(String code, OutputStream os) throws IOException, EXIException {
-		// http://sites.psu.edu/robertbcolton/2015/07/31/java-8-nashorn-script-engine/
-		/*
-		 * This JSON encoding provided by Nashorn is compliant with the
-		 * community standard JavaScript JSON AST model popularized by Mozilla.
-		 * https://developer.mozilla.org/en-US/docs/Mozilla/Projects/
-		 * SpiderMonkey/Parser_API
-		 */
-		// Additionally the OpenJDK project is developing a public interface for
-		// Java 9 that allows AST traversal in a more standard and user friendly
-		// way.
-		// String code = "function a() { var b = 5; } function c() { }";
-		// String sin = "./data//jquery.min.js";
-		// String sin = "./data/animals.js";
-		// String code = new String(Files.readAllBytes(Paths.get(sin)));
-
-		// ScriptEngine engine = new
-		// ScriptEngineManager().getEngineByName("nashorn");
-		// engine.eval("print('Hello World!');");
-		// load jquery source file
-		// engine.eval("load('" +
-		// "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" +
-		// "');");
-		// engine.eval("load('" + sin + "');");
-
-		Options options = new Options("nashorn");
-		options.set("anon.functions", true);
-		options.set("parse.only", true);
-		options.set("scripting", true);
-
-		ErrorManager errors = new ErrorManager();
-		Context contextm = new Context(options, errors, Thread.currentThread().getContextClassLoader());
-		Context.setGlobal(contextm.createGlobal());
-		String json = ScriptUtils.parse(code, "<unknown>", false);
-		if (json.length() < 10000) {
-			println(json);
+	public void generate(String jsonAST, OutputStream os) throws IOException, EXIException {
+		if (jsonAST.length() < 10000) {
+			println(jsonAST);
 		} else {
-			println("Characters " + json.length());
-			println(json.substring(0, 10000) + " ...");
+			println("Characters " + jsonAST.length());
+			println(jsonAST.substring(0, 10000) + " ...");
 		}
 
-		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonReader reader = Json.createReader(new StringReader(jsonAST));
 		JsonStructure js = reader.read();
 		if (js instanceof JsonObject) {
 			JsonObject jo = (JsonObject) js;
@@ -2077,15 +2044,19 @@ public class JStoEXI {
 		}
 
 		
-		bodyEncoder.encodeStartElement(JSConstants.URI, "kind", null);
-		String s = jo.getString("kind", "var");
-		println("<kind>" + s + "</kind>");
-		// println("<string>" + s + "</string>");
-		// bodyEncoder.encodeStartElement(JSConstants.URI, "string", null);
-		bodyEncoder.encodeCharacters(new StringValue(s));
-		// bodyEncoder.encodeEndElement();
-		// println("</kind>");
-		bodyEncoder.encodeEndElement();
+		// kind seems to be optional
+		if( jo.containsKey("kind")) {
+			bodyEncoder.encodeStartElement(JSConstants.URI, "kind", null);
+			// String s = jo.getString("kind", "var");
+			String s = jo.getString("kind");
+			println("<kind>" + s + "</kind>");	
+			// println("<string>" + s + "</string>");
+			// bodyEncoder.encodeStartElement(JSConstants.URI, "string", null);
+			bodyEncoder.encodeCharacters(new StringValue(s));
+			// bodyEncoder.encodeEndElement();
+			// println("</kind>");
+			bodyEncoder.encodeEndElement();
+		}
 
 		println("</VariableDeclaration>");
 		bodyEncoder.encodeEndElement();
@@ -2270,12 +2241,12 @@ public class JStoEXI {
 		// String sin = "./src/test/resources/angular2.min.js";
 		// String sin = "./src/test/resources/react.js";
 		// String sin = "./src/test/resources/react.min.js";
-		String code = new String(Files.readAllBytes(Paths.get(sin)));
+		String jsCode = new String(Files.readAllBytes(Paths.get(sin)));
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		js2exi.generate(code, baos);
+		js2exi.generate(JStoAST.getAST(jsCode), baos);
 
-		System.out.println("From JavaScript " + code.length() + " Bytes to " + baos.size() + " in EXI4JS");
+		System.out.println("From JavaScript " + jsCode.length() + " Bytes to " + baos.size() + " in EXI4JS");
 		
 		if(true) {
 			File f = File.createTempFile("foo", ".exi");

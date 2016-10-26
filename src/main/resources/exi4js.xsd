@@ -723,7 +723,8 @@
                 </xsd:sequence>
               </xsd:complexType>
             </xsd:element>
-            <xsd:element name="kind">
+            <!-- Seems to be optional -->
+            <xsd:element name="kind" minOccurs="0">
               <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                   <xsd:enumeration value="var"/>
