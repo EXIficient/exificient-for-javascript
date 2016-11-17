@@ -31,6 +31,7 @@ import com.siemens.ct.exi.EXIBodyEncoder;
 import com.siemens.ct.exi.EXIFactory;
 import com.siemens.ct.exi.EXIStreamEncoder;
 import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.grammars.Grammars;
 import com.siemens.ct.exi.values.BooleanValue;
 import com.siemens.ct.exi.values.FloatValue;
 import com.siemens.ct.exi.values.IntegerValue;
@@ -54,6 +55,14 @@ public class JStoEXI {
 
 	public JStoEXI(EXIFactory ef) {
 		this.ef = ef;
+		
+		if(ef.getGrammars().isSchemaInformed()) {
+			// schema-informed grammars (dedicated grammars in use)
+		} else {
+			// setup EXI schema/grammars
+			ef.setGrammars(JSConstants.EXI_FOR_JS_GRAMMARS);
+		}
+		
 	}
 
 	public void setDebug(PrintStream ps) {

@@ -34,6 +34,13 @@ public class EXItoAST {
 	
 	public EXItoAST(EXIFactory ef) {
 		this.ef = ef;
+		
+		if(ef.getGrammars().isSchemaInformed()) {
+			// schema-informed grammars (dedicated grammars in use)
+		} else {
+			// setup EXI schema/grammars
+			ef.setGrammars(JSConstants.EXI_FOR_JS_GRAMMARS);
+		}
 	}
 	
 	public void generate(InputStream is, OutputStream os) throws IOException, EXIException {
