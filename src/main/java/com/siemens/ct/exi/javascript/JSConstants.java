@@ -18,6 +18,7 @@ public class JSConstants {
 	public static EXIFactory EXI_FACTORY;
 	public static EXIFactory EXI_FACTORY_COMPRESSION;
 	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION;
+	public static EXIFactory EXI_FACTORY_BYTE_PACKED;
 
 	static {
 		try {
@@ -38,6 +39,11 @@ public class JSConstants {
 			EXI_FACTORY_PRE_COMPRESSION.setFidelityOptions(FidelityOptions.createStrict());
 			EXI_FACTORY_PRE_COMPRESSION.setGrammars(JSConstants.EXI_FOR_JS_GRAMMARS); // use XML schema
 			EXI_FACTORY_PRE_COMPRESSION.setCodingMode(CodingMode.PRE_COMPRESSION); // use pre-compression for following generic compression
+			
+			EXI_FACTORY_BYTE_PACKED = DefaultEXIFactory.newInstance();
+			EXI_FACTORY_BYTE_PACKED.setFidelityOptions(FidelityOptions.createStrict());
+			EXI_FACTORY_BYTE_PACKED.setGrammars(JSConstants.EXI_FOR_JS_GRAMMARS); // use XML schema
+			EXI_FACTORY_BYTE_PACKED.setCodingMode(CodingMode.BYTE_PACKED);
 			
 		} catch (EXIException e) {
 			System.err.println("Not able to load EXI grammars from " + XSD_LOCATION);
