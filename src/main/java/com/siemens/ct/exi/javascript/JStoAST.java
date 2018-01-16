@@ -2,7 +2,7 @@ package com.siemens.ct.exi.javascript;
 
 import java.io.IOException;
 
-import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.core.exceptions.EXIException;
 
 import jdk.nashorn.api.scripting.ScriptUtils;
 import jdk.nashorn.internal.runtime.Context;

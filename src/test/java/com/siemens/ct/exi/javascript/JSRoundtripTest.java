@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
-import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.core.exceptions.EXIException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

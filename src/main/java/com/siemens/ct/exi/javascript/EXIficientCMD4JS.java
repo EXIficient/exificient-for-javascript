@@ -15,10 +15,10 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-import com.siemens.ct.exi.CodingMode;
-import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.cmd.CmdOption;
-import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.core.CodingMode;
+import com.siemens.ct.exi.core.EXIFactory;
+import com.siemens.ct.exi.core.exceptions.EXIException;
+import com.siemens.ct.exi.main.cmd.CmdOption;
 
 public class EXIficientCMD4JS {
 

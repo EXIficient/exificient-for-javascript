@@ -16,10 +16,8 @@ import java.util.Iterator;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonBuilderFactory;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonString;
 import javax.json.JsonStructure;
@@ -27,20 +25,14 @@ import javax.json.JsonValue;
 import javax.json.JsonValue.ValueType;
 import javax.script.ScriptException;
 
-import com.siemens.ct.exi.EXIBodyEncoder;
-import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.EXIStreamEncoder;
-import com.siemens.ct.exi.exceptions.EXIException;
-import com.siemens.ct.exi.grammars.Grammars;
-import com.siemens.ct.exi.values.BooleanValue;
-import com.siemens.ct.exi.values.FloatValue;
-import com.siemens.ct.exi.values.IntegerValue;
-import com.siemens.ct.exi.values.StringValue;
-
-import jdk.nashorn.api.scripting.ScriptUtils;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.options.Options;
+import com.siemens.ct.exi.core.EXIBodyEncoder;
+import com.siemens.ct.exi.core.EXIFactory;
+import com.siemens.ct.exi.core.EXIStreamEncoder;
+import com.siemens.ct.exi.core.exceptions.EXIException;
+import com.siemens.ct.exi.core.values.BooleanValue;
+import com.siemens.ct.exi.core.values.FloatValue;
+import com.siemens.ct.exi.core.values.IntegerValue;
+import com.siemens.ct.exi.core.values.StringValue;
 
 public class JStoEXI {
 
