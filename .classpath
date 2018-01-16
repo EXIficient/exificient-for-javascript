@@ -32,19 +32,19 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient/0.9.7-SNAPSHOT/exificient-0.9.7-SNAPSHOT.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient/0.9.7-SNAPSHOT/exificient-0.9.7-SNAPSHOT-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient/0.9.7/exificient-0.9.7.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient/0.9.7/exificient-0.9.7-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient/0.9.7-SNAPSHOT/exificient-0.9.7-SNAPSHOT-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient/0.9.7/exificient-0.9.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient-core/0.9.7-SNAPSHOT/exificient-core-0.9.7-SNAPSHOT.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient-core/0.9.7-SNAPSHOT/exificient-core-0.9.7-SNAPSHOT-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient-core/0.9.7/exificient-core-0.9.7.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient-core/0.9.7/exificient-core-0.9.7-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient-core/0.9.7-SNAPSHOT/exificient-core-0.9.7-SNAPSHOT-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient-core/0.9.7/exificient-core-0.9.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient-grammars/0.9.7-SNAPSHOT/exificient-grammars-0.9.7-SNAPSHOT.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient-grammars/0.9.7-SNAPSHOT/exificient-grammars-0.9.7-SNAPSHOT-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient-grammars/0.9.7/exificient-grammars-0.9.7.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient-grammars/0.9.7/exificient-grammars-0.9.7-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient-grammars/0.9.7-SNAPSHOT/exificient-grammars-0.9.7-SNAPSHOT-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/siemens/ct/exi/exificient-grammars/0.9.7/exificient-grammars-0.9.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar" sourcepath="M2_REPO/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0-sources.jar">
@@ -57,6 +57,7 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar" sourcepath="M2_REPO/junit/junit/4.11/junit-4.11-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/junit/junit/4.11/junit-4.11-javadoc.jar!/"/>
@@ -73,6 +74,21 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/json/json/20090211/json-20090211.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/javacrumbs/json-unit/json-unit/1.16.0/json-unit-1.16.0.jar" sourcepath="M2_REPO/net/javacrumbs/json-unit/json-unit/1.16.0/json-unit-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/net/javacrumbs/json-unit/json-unit/1.16.0/json-unit-1.16.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/net/javacrumbs/json-unit/json-unit-core/1.16.0/json-unit-core-1.16.0.jar" sourcepath="M2_REPO/net/javacrumbs/json-unit/json-unit-core/1.16.0/json-unit-core-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/net/javacrumbs/json-unit/json-unit-core/1.16.0/json-unit-core-1.16.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.7/gson-2.7.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.7/gson-2.7-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/mchn4310/.m2/repository/com/google/code/gson/gson/2.7/gson-2.7-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
