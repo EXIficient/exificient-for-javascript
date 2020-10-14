@@ -1,6 +1,8 @@
 language: java
 jdk:
-- oraclejdk8
+- openjdk8
+- openjdk11
+# - oraclejdk8
 # - oraclejdk7 # uses Java8 Nashorn features
 env:
   global:
